@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">DroidNet</string>
+    <string name="vpn_start">开启VPN</string>
+    <string name="vpn_stop">停止VPN</string>
+    <string name="capture_start">开始抓包</string>
+    <string name="capture_stop">停止抓包</string>
+    <string name="firewall_on">开启防火墙</string>
+    <string name="firewall_off">关闭防火墙</string>
+    <string name="select_pkg">选择抓包应用</string>
+    <string name="intercept_rules_table">拦截规则表</string>
+    <string name="new_rule">新建规则</string>
+    <string name="priority">priority:</string>
+    <string name="priority_after">priority after:</string>
+    <string name="session">session:</string>
+    <string name="package_name">pkg:</string>
+    <string name="select_pkgName">选择</string>
+    <string name="pattern">pattern:</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+    <string name="confirm">确认</string>
+    <string name="clear_captured">清空当前抓包记录</string>
+</resources>

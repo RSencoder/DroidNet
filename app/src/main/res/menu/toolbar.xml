@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:id="@+id/menu_selectPkg"
+        android:title="@string/select_pkg"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/menu_vpnSwitcher"
+        android:title="@string/vpn_start"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/menu_firewallSwitcher"
+        android:title="@string/firewall_on"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/menu_clearCaptured"
+        android:title="@string/clear_captured"
+        app:showAsAction="never" />
+    
+</menu>

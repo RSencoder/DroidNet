@@ -1,0 +1,1 @@
+include ':app', ':netbare-core', ':netbare-injector'

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tabs">
+        <item>抓包</item>
+        <item>防火墙</item>
+    </string-array>
+</resources>
