@@ -6,6 +6,11 @@ import com.github.megatronking.netbare.gateway.Interceptor;
 import com.github.megatronking.netbare.gateway.InterceptorFactory;
 import com.mingxiangChen.droidnet.fragment.PacketCapturedListener;
 
+/**
+ * A {@link InterceptorFactory} that creates {@link CaptureRawInterceptor}.
+ * 
+ * @author RSmxchen
+ */
 public class CaptureRawInterceptorFactory implements InterceptorFactory {
 
     private PacketCapturedListener mPacketCapturedListener;

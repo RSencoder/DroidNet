@@ -9,9 +9,11 @@ import com.github.megatronking.netbare.gateway.VirtualGateway;
 import com.github.megatronking.netbare.gateway.VirtualGatewayFactory;
 import com.github.megatronking.netbare.net.Session;
 import com.mingxiangChen.droidnet.fragment.PacketCapturedListener;
+import com.mingxiangChen.droidnet.fragment.ToastFirewallHandler;
 import com.mingxiangChen.droidnet.interceptor.CaptureRawInterceptor;
 import com.mingxiangChen.droidnet.interceptor.CaptureRawInterceptorFactory;
 import com.mingxiangChen.droidnet.interceptor.FirewallInterceptor;
+import com.mingxiangChen.droidnet.interceptor.FirewallInterceptorFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,20 +28,26 @@ public class DroidNetVirtualGatewayFactory implements VirtualGatewayFactory {
 
     private List<InterceptorFactory<Request, RequestChain, Response, ResponseChain>> mFactories;
     
-    private PacketCapturedListener mPacketCaptureListener;
-    
     public DroidNetVirtualGatewayFactory() {
         mFactories = new ArrayList<>();
         CaptureRawInterceptorFactory captureRawInterceptorFactory = new CaptureRawInterceptorFactory();
         mFactories.add(captureRawInterceptorFactory);
-        mFactories.add(FirewallInterceptor.createFactory());
+        FirewallInterceptorFactory firewallInterceptorFactory = new FirewallInterceptorFactory();
+        mFactories.add(firewallInterceptorFactory);
     }
 
-    public void setPacketCaptureListener(PacketCapturedListener mPacketCaptureListener) {
-        this.mPacketCaptureListener = mPacketCaptureListener;
+    public void setPacketCaptureListener(PacketCapturedListener packetCaptureListener) {
         for (InterceptorFactory factory: mFactories) {
             if (factory instanceof CaptureRawInterceptorFactory) {
-                ((CaptureRawInterceptorFactory) factory).setPacketCapturedListener(mPacketCaptureListener);
+                ((CaptureRawInterceptorFactory) factory).setPacketCapturedListener(packetCaptureListener);
+            }
+        }
+    }
+    
+    public void setToastFirewallHandler(ToastFirewallHandler handler) {
+        for (InterceptorFactory factory: mFactories) {
+            if (factory instanceof FirewallInterceptorFactory) {
+                ((FirewallInterceptorFactory) factory).setHandler(handler);
             }
         }
     }

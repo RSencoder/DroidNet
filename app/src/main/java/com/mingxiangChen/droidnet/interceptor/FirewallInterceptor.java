@@ -1,8 +1,10 @@
 package com.mingxiangChen.droidnet.interceptor;
 
 import android.content.pm.PackageManager;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.megatronking.netbare.gateway.AbstractRequestChain;
 import com.github.megatronking.netbare.gateway.AbstractResponseChain;
@@ -11,6 +13,7 @@ import com.github.megatronking.netbare.gateway.InterceptorFactory;
 import com.github.megatronking.netbare.gateway.Request;
 import com.github.megatronking.netbare.gateway.Response;
 import com.mingxiangChen.droidnet.App;
+import com.mingxiangChen.droidnet.fragment.ToastFirewallHandler;
 import com.mingxiangChen.droidnet.table.InterceptRules;
 
 import org.litepal.LitePal;
@@ -35,8 +38,9 @@ public class FirewallInterceptor implements Interceptor {
     private String TAG = "Firewall";
     private boolean isFirewallOn;
     private Charset mAscii;
+    private ToastFirewallHandler mHandler;
     
-    private FirewallInterceptor() {
+    public FirewallInterceptor() {
         this.isFirewallOn = App.getInstance().mFirewallSwitcher;
         mAscii = Charset.forName("ascii");
     }
@@ -49,6 +53,10 @@ public class FirewallInterceptor implements Interceptor {
                 return new FirewallInterceptor();
             }
         };
+    }
+    
+    public void setHandler(ToastFirewallHandler handler) {
+        this.mHandler = handler;
     }
 
     @Override
@@ -103,9 +111,14 @@ public class FirewallInterceptor implements Interceptor {
                 }
                 // 拦截动作判断
                 if (sessionHit & pkgNameHit & patternHit) {
+                    // 输出日志、弹出Toast
+                    String logString = "被防火墙拦截，命中规则：\nSession:" + rule.getSession()
+                            + " PackageName:" + rule.getPackageName() + " Pattern:" + rule.getPattern();
+                    Log.w(TAG, logString);
+                    Message message = new Message();
+                    message.obj = logString;
+                    mHandler.sendMessage(message);
                     // 不调用chain.process(buffer)就表示阻止此包的传送，并调用return直接返回
-                    Log.w(TAG, "被防火墙拦截，命中规则：\nSession:" + rule.getSession() 
-                            + " PackageName:" + rule.getPackageName() + " Pattern:" + rule.getPattern());
                     return;
                 }
             }

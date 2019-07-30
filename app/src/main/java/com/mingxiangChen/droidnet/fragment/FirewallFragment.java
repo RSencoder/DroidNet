@@ -15,6 +15,7 @@ import com.bin.david.form.core.SmartTable;
 import com.bin.david.form.data.Column;
 import com.bin.david.form.data.table.TableData;
 import com.bin.david.form.listener.OnColumnItemClickListener;
+import com.mingxiangChen.droidnet.App;
 import com.mingxiangChen.droidnet.R;
 import com.mingxiangChen.droidnet.dialog.EditRuleDialog;
 import com.mingxiangChen.droidnet.dialog.NewRuleDialog;
@@ -39,6 +40,8 @@ public class FirewallFragment extends BaseFragment implements TableChanged {
     private NewRuleDialog mNewRuleDialog;
     private EditRuleDialog mEditRuleDialog;
     
+    private ToastFirewallHandler mHandler;
+    
     private static final String TAG = "FirewallFragment";
     
     @Override
@@ -49,6 +52,10 @@ public class FirewallFragment extends BaseFragment implements TableChanged {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
+        this.mHandler = new ToastFirewallHandler();
+        mHandler.setContext(getActivity());
+        App.getInstance().mDroidNetVirtualGatewayFactory.setToastFirewallHandler(mHandler);
         
         mTable = view.findViewById(R.id.table_rules);
 
